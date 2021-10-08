@@ -40,3 +40,21 @@ $RECYCLE.BIN/
 
 # VS Code specific
 .vscode
+
+##########
+# PYTHON #
+##########
+
+# Compilations
+.pyc
+
+# Project files
+.ipynb_checkpoints
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
