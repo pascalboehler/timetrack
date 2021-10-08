@@ -30,6 +30,9 @@ As part of my job, I am forced to track the time I work and send a monthly repor
     - name of contact person
     - billing address
     - default hourly rate (which will be overwritten by project)
+- create time entries manually (by entering required information)
+- create time entries via stopclock
+- automate time creation, eg. when Program X is opened, start tracking for project Y.
 - export project overview / reports as PDF via LaTex
 - export invoices for client as PDF via LaTex (on specific project / time frame)
 - being able to import owm LaTex templates for reports and invoices -> keep a consistent corp design
