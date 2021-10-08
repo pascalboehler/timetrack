@@ -43,4 +43,5 @@ As part of my job, I am forced to track the time I work and send a monthly repor
 - show estimate earning for week / month / year by including planned work assignments from calendar
 - be able to develop own frontend for backend solution => write to DB via REST Api
 
-
+## Tasks
+[] Create database scheme 
