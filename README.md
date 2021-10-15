@@ -44,4 +44,10 @@ As part of my job, I am forced to track the time I work and send a monthly repor
 - be able to develop own frontend for backend solution => write to DB via REST Api
 
 ## Tasks
-[] Create database scheme 
+[] Create database scheme
+[] Create backend server with PY
+    [] Design API Endpoints
+    [] Find way to secure API Endpoint (Auth System; Firebase?)
+    [] Connect DB to Backend
+[] Create CLI
+    [] Create simple CLI to communicate with the API (like create entries, start timer etc.)
