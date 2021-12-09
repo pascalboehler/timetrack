@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    volumes:
+      - ./database_data:/var/lib/mysql
+    restart: on-failure
+    ports:
+      - 3306:3306 # keep it open only while developing database scheme => later, closed docker network
+    env_file:
+      - database.env
