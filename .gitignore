@@ -63,4 +63,4 @@ __pycache__/
 *.env
 
 # Docker working directories:
-./Docker/database_data
+Docker/database_data/*
