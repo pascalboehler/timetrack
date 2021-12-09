@@ -45,6 +45,7 @@ As part of my job, I am forced to track the time I work and send a monthly repor
 
 ## Tasks
 - [x] Create database scheme
+- [x] Apply database scheme to MySQL Server
 - Create backend server with PY
     - Design API Endpoints
     - Find way to secure API Endpoint (Auth System; Firebase?)
