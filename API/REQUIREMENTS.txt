@@ -1,4 +1,5 @@
 mysql-connector-python
+python-dotenv
 
 # only needed while development to plot data in tables and to work with jupyter notebooks
 pandas
