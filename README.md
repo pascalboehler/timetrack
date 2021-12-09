@@ -46,6 +46,13 @@ As part of my job, I am forced to track the time I work and send a monthly repor
 ## Tasks
 - [x] Create database scheme
 - [x] Apply database scheme to MySQL Server
+- create Python interface to work with the database
+    - [x] create new project
+    - delete project (dynamic method?)
+    - [x] delete project
+    - create new client
+    - edit client
+    - delete client
 - Create backend server with PY
     - Design API Endpoints
     - Find way to secure API Endpoint (Auth System; Firebase?)
