@@ -64,3 +64,7 @@ __pycache__/
 
 # Docker working directories:
 Docker/database_data
+
+# Testing and learning folders
+learning
+learning/*
