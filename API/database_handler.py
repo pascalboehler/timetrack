@@ -122,9 +122,30 @@ class Database_handler:
             print(f"Error '{err}'")
 
 
+    def create_task(self, task_name, project_id, rate):
+        query = f"""
+        INSERT INTO task (task_name, project_id, task_hourly_rate)
+        VALUES ("{task_name}", {project_id}, {rate});
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            self.connection.commit()
+            print("Task successfully created")
+        except Error as err:
+            print(f"Error '{err}'")
 
-
-
+    def delete_task(self, task_id):
+        query = f"""
+        DELETE FROM task WHERE task_id = {task_id};
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            self.connection.commit()
+            print("Task deleted")
+        except Error as err:
+            print(f"Error '{err}'")
 
 
 
