@@ -16,7 +16,10 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-class Database_handler:
+# other local classes
+from datatypes.time_entry import TimeEntry
+
+class DatabaseHandler:
 
     connection: any
     database_connected: bool
@@ -147,11 +150,44 @@ class Database_handler:
         except Error as err:
             print(f"Error '{err}'")
 
+    def create_time_entry(self, time_entry):
+        query = f"""
+        INSERT INTO time_entry (
+            title,
+            date_begin,
+            time_begin,
+            date_end,
+            time_end,
+            project_id,
+            client_id,
+            task_id,
+            billable
+        )
+        VALUES (
+            {time_entry.getTitle()},
+            {time_entry.getDateBegin()},
+            {time_entry.getTimeBegin()},
+            {time_entry.getDateEnd()},
+            {time_entry.getTimeEnd()},
+            {time_entry.getClientID()},
+            {time_entry.getTaskID()},
+            {time_entry.getProjectID()}
+        );
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            self.connection.commit()
+            print("Time entry created successfully")
+        except Error as err:
+            print(f"Error '{err}")
 
 
+database = DatabaseHandler("./API/.env")
 
+time_entry = TimeEntry("Test", "2022-09-09", "22:22:22", "2022-09-09", "23:59:59", 1, 1, 1, True)
 
-database = Database_handler("./.env")
+database.create_time_entry(time_entry)
 
 #database.create_new_project("Super project", 1, 25.0, 2100.0, "blue")
 #database.delete_project(3)
