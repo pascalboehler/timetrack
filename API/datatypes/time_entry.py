@@ -12,17 +12,17 @@ class TimeEntry:
     def __init__(self, title, date_begin, time_begin, date_end, time_end, client_id, project_id = None, task_id = None, billable = False):
         # init optional parameters if set otherwise set to default
         if project_id is not None:
-            self.project_id = project_id
+            self._project_id = project_id
         else:
-            self.project_id = 0;
+            self._project_id = 0;
         if task_id is not None:
-            self.task_id = task_id
+            self._task_id = task_id
         else:
-            self.task_id = 0
+            self._task_id = 0
         if billable is not None:
-            self.billable = billable
+            self._billable = billable
         else:
-            self.billable = True
+            self._billable = True
         
         self._title = title
         self._date_begin = date_begin
@@ -57,3 +57,6 @@ class TimeEntry:
 
     def getProjectID(self):
         return self._project_id
+
+    def  getBillable(self):
+        return self._billable

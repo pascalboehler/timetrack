@@ -164,14 +164,15 @@ class DatabaseHandler:
             billable
         )
         VALUES (
-            {time_entry.getTitle()},
-            {time_entry.getDateBegin()},
-            {time_entry.getTimeBegin()},
-            {time_entry.getDateEnd()},
-            {time_entry.getTimeEnd()},
+            "{time_entry.getTitle()}",
+            "{time_entry.getDateBegin()}",
+            "{time_entry.getTimeBegin()}",
+            "{time_entry.getDateEnd()}",
+            "{time_entry.getTimeEnd()}",
             {time_entry.getClientID()},
             {time_entry.getTaskID()},
-            {time_entry.getProjectID()}
+            {time_entry.getProjectID()},
+            {time_entry.getBillable()}
         );
         """
         cursor = self.connection.cursor()
