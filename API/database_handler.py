@@ -16,10 +16,13 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
+from mysql.connector.utils import normalize_unicode_string
+
 # import custom datatypes
 from datatypes.time_entry import TimeEntry
 from datatypes.task import Task
 from datatypes.client import Client
+from datatypes.project import Project
 
 class DatabaseHandler:
 
@@ -53,11 +56,11 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error: '{err}'")
 
-    def create_new_project(self, project_title, client_id, hourly_rate, project_estimate, colour):
+    def create_new_project(self, project: Project):
         query = f"""
         INSERT INTO project(title, client_id, hourly_rate, project_estimate, colour)
         VALUES (
-            "{project_title}", {client_id}, {hourly_rate}, {project_estimate}, "{colour}");
+            "{project.getTitle()}", {project.getClientID()}, {project.getHourlyRate()}, {project.getProjectEstimate()}, "{project.getColour()}");
         """ 
         cursor = self.connection.cursor()
         try:
@@ -67,9 +70,12 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
-    def delete_project(self, project_id):
+    def delete_project(self, project: Project):
+        if project.getID() is None:
+            return
+        
         query = f"""
-        DELETE FROM project WHERE project_id={project_id};
+        DELETE FROM project WHERE project_id={project.getID()};
         """
         cursor = self.connection.cursor()
         try:
@@ -117,6 +123,9 @@ class DatabaseHandler:
             print(f"Error '{err}'")
 
     def delete_client(self, client: Client):
+        if client.getID() is None:
+            return
+
         query = f"DELETE FROM client WHERE client_id = {client.getID()}"
         cursor = self.connection.cursor()
         try:
@@ -125,7 +134,6 @@ class DatabaseHandler:
             print("Client deleted")
         except Error as err:
             print(f"Error '{err}'")
-
 
     def create_task(self, task: Task):
         query = f"""
@@ -141,6 +149,9 @@ class DatabaseHandler:
             print(f"Error '{err}'")
 
     def delete_task(self, task: Task):
+        if task.getID() is None:
+            return
+
         query = f"""
         DELETE FROM task WHERE task_id = {task.getID()};
         """
