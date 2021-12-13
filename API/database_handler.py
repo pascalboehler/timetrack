@@ -16,8 +16,9 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-# other local classes
+# import custom datatypes
 from datatypes.time_entry import TimeEntry
+from datatypes.task import Task
 
 class DatabaseHandler:
 
