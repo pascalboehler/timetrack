@@ -11,12 +11,11 @@
 from typing import Any
 import mysql.connector
 from mysql.connector import Error
+from mysql.connector.utils import normalize_unicode_string
 
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-
-from mysql.connector.utils import normalize_unicode_string
 
 # import custom datatypes
 from datatypes.time_entry import TimeEntry
