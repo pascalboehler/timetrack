@@ -1,4 +1,4 @@
-class task:
+class Task:
     _id: str
     _task_name: str
     _project_id: int
