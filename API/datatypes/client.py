@@ -3,13 +3,14 @@ class Client:
     _client_name: str
     _contact_name: str
     _contact_phone: int # treated as bigint in db
+    _hourly_rate: float
     _billing_address_street_and_housenumber: str
     _billing_address_postal_code: str
     _billing_address_city: str
     _billing_address_state: str
     _billing_address_country: int
 
-    def __init__(self, client_name, contact_name, contact_phone, billing_address_street_and_housenumber, billing_address_postal_code, billing_address_city, billing_address_state, billing_address_country, id = None):
+    def __init__(self, client_name, contact_name, contact_phone, hourly_rate, billing_address_street_and_housenumber, billing_address_postal_code, billing_address_city, billing_address_state, billing_address_country, id = None):
         if id is not None:
             self._id = id
         else:
@@ -18,6 +19,7 @@ class Client:
         self._client_name = client_name
         self._contact_name = contact_name
         self._contact_phone = contact_phone
+        self._hourly_rate = hourly_rate
         self._billing_address_street_and_housenumber = billing_address_street_and_housenumber
         self._billing_address_postal_code = billing_address_postal_code
         self._billing_address_city = billing_address_city
@@ -35,6 +37,9 @@ class Client:
 
     def getContactPhone(self):
         return self._contact_phone
+
+    def getHourlyRate(self):
+        return self._hourly_rate
 
     def getBillingAddressStreetAndHousenumber(self):
         return self._billing_address_street_and_housenumber

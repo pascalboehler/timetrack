@@ -19,6 +19,7 @@ from pathlib import Path
 # import custom datatypes
 from datatypes.time_entry import TimeEntry
 from datatypes.task import Task
+from datatypes.client import Client
 
 class DatabaseHandler:
 
@@ -78,7 +79,7 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
-    def create_client(self, client_name, rate, contact_name, contact_phone, street, ptz, city, state, country):
+    def create_client(self, client: Client):
         
         # Function for creating a new client entry in the database
 
@@ -95,15 +96,15 @@ class DatabaseHandler:
             billing_address_country
         )
         VALUES (
-            {client_name},
-            {rate},
-            {contact_name},
-            {contact_phone},
-            {street},
-            {ptz},
-            {city},
-            {state},
-            {country}
+            {client.getClientName()},
+            {client.getContactName()},
+            {client.getContactPhone()}
+            {client.getHourlyRate()},
+            {client.getBillingAddressStreetAndHousenumber()},
+            {client.getBillingAddressPostalCode()},
+            {client.getBillingAddressCity()},
+            {client.getBillingAddressState()},
+            {client.getBillingAddressCountry()}
         )
         """
 
@@ -115,8 +116,8 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
-    def delete_client(self, client_id):
-        query = f"DELETE FROM client WHERE client_id = {client_id}"
+    def delete_client(self, client: Client):
+        query = f"DELETE FROM client WHERE client_id = {client.getID()}"
         cursor = self.connection.cursor()
         try:
             cursor.execure(query)
@@ -126,7 +127,7 @@ class DatabaseHandler:
             print(f"Error '{err}'")
 
 
-    def create_task(self, task):
+    def create_task(self, task: Task):
         query = f"""
         INSERT INTO task (task_name, project_id, task_hourly_rate)
         VALUES ("{task.getTaskName}", {task.getProjectID()}, {task.getTaskHourlyRate()});
@@ -139,7 +140,7 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
-    def delete_task(self, task):
+    def delete_task(self, task: Task):
         query = f"""
         DELETE FROM task WHERE task_id = {task.getID()};
         """
@@ -151,7 +152,7 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
-    def create_time_entry(self, time_entry):
+    def create_time_entry(self, time_entry: TimeEntry):
         query = f"""
         INSERT INTO time_entry (
             title,
