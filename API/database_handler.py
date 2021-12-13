@@ -125,10 +125,10 @@ class DatabaseHandler:
             print(f"Error '{err}'")
 
 
-    def create_task(self, task_name, project_id, rate):
+    def create_task(self, task):
         query = f"""
         INSERT INTO task (task_name, project_id, task_hourly_rate)
-        VALUES ("{task_name}", {project_id}, {rate});
+        VALUES ("{task.getTaskName}", {task.getProjectID()}, {task.getTaskHourlyRate()});
         """
         cursor = self.connection.cursor()
         try:
@@ -138,9 +138,9 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
-    def delete_task(self, task_id):
+    def delete_task(self, task):
         query = f"""
-        DELETE FROM task WHERE task_id = {task_id};
+        DELETE FROM task WHERE task_id = {task.getID()};
         """
         cursor = self.connection.cursor()
         try:
@@ -192,6 +192,3 @@ database.create_time_entry(time_entry)
 
 #database.create_new_project("Super project", 1, 25.0, 2100.0, "blue")
 #database.delete_project(3)
-
-
-    

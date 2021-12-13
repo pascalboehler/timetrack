@@ -1,4 +1,5 @@
 class TimeEntry:
+    _id: int
     _title: str
     _date_begin: str
     _time_begin: str
@@ -9,7 +10,7 @@ class TimeEntry:
     _task_id: int
     _billable: bool
 
-    def __init__(self, title, date_begin, time_begin, date_end, time_end, client_id, project_id = None, task_id = None, billable = False):
+    def __init__(self, title, date_begin, time_begin, date_end, time_end, client_id, project_id = None, task_id = None, billable = False, id = None):
         # init optional parameters if set otherwise set to default
         if project_id is not None:
             self._project_id = project_id
@@ -23,6 +24,10 @@ class TimeEntry:
             self._billable = billable
         else:
             self._billable = True
+        if id is not None:
+            self._id = id
+        else:
+            self._id = None
         
         self._title = title
         self._date_begin = date_begin
@@ -33,6 +38,9 @@ class TimeEntry:
     
     def __str__(self):
         return f"{self._title}"
+
+    def getID(self):
+        return self._id
 
     def getTitle(self):
         return self._title
