@@ -3,4 +3,6 @@ VALUES (
     "TITLE", ID, RATE, ESTIMATE, "COLOUR"
 );
 
-DELETE FROM project WHERE project_id=ID;
+DELETE FROM project WHERE project_id = 1;
+
+SELECT * FROM project WHERE project_id = 1;

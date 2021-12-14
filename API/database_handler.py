@@ -84,6 +84,43 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
+    def read_project(self, project_id):
+        query = f"""
+        SELECT * FROM project WHERE project_id = {project_id};
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            list = []
+            for result in results:
+                list.append(result)
+
+            dataset = list[0]
+            project = Project(dataset[1], dataset[2], dataset[3], dataset[5], dataset[0], dataset[4])
+            return project
+        except Error as err:
+            print(f"Error '{err}'")
+
+    def read_all_projects(self):
+        query = """
+        SELECT * FROM project
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            list = []
+            for result in results:
+                list.append(result)
+            projects = []
+            for dataset in list:
+                project = Project(dataset[1], dataset[2], dataset[3], dataset[5], dataset[0], dataset[4])
+                projects.append(project)
+            return projects
+        except Error as err:
+            print(f"Error '{err}'")
+
     def create_client(self, client: Client):
         
         # Function for creating a new client entry in the database
@@ -355,4 +392,15 @@ all_clients = database.read_all_clients()
 
 for client in all_clients:
     print(client.getClientName())
+
+print("--- PROJECT ---")
+
+new_project = database.read_project(1)
+
+print(new_project.getTitle())
+
+all_projects = database.read_all_projects()
+
+for project in all_projects:
+    print(project.getTitle())
 
