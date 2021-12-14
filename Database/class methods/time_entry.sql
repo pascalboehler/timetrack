@@ -13,4 +13,6 @@ VALUES (
     
 );
 
+DELETE FROM time_entry WHERE entry_id=1;
+
 SELECT * FROM time_entry WHERE entry_id = 1;

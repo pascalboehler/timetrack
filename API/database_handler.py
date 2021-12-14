@@ -195,6 +195,21 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}")
 
+    def delete_time_entry(self, time_entry):
+        if time_entry.getID() is None:
+            return
+        
+        query = f"""
+        DELETE FROM time_entry WHERE entry_id={time_entry.getID()};
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            self.connection.commit()
+            print("Task deleted")
+        except Error as err:
+            print(f"Error '{err}'")
+
     def read_time_entry(self, entry_id):
         query = f"""
         SELECT * FROM time_entry WHERE entry_id = {entry_id};
@@ -215,7 +230,6 @@ class DatabaseHandler:
             return time_entry
         except Error as err:
             print(f"Error: '{err}'")
-
 
     def read_all_time_entries(self):
         query = f"""
