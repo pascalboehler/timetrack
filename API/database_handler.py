@@ -231,7 +231,7 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}")
 
-    def delete_time_entry(self, time_entry):
+    def delete_time_entry(self, time_entry: TimeEntry):
         if time_entry.getID() is None:
             return
         
