@@ -195,12 +195,35 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}")
 
+    def read_time_entry(self, entry_id):
+        query = f"""
+        SELECT * FROM time_entry WHERE entry_id = {entry_id};
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            list = []
+            for result in results:
+                list.append(result)
+
+            # get first dataset (query should only return 1 object!)
+            dataset = list[0]
+            time_entry = TimeEntry(
+                dataset[1], dataset[2], dataset[3], dataset[4], dataset[5], dataset[6], dataset[7], dataset[8], dataset[9], dataset[0]
+            )
+            return time_entry
+        except Error as err:
+            print(f"Error: '{err}'")
+
+
 
 database = DatabaseHandler("./API/.env")
 
 time_entry = TimeEntry("Test", "2022-09-09", "22:22:22", "2022-09-09", "23:59:59", 1, 1, 1, True)
 
-database.create_time_entry(time_entry)
+new_time_entry = database.read_time_entry(1)
+print(new_time_entry.getTitle())
 
 #database.create_new_project("Super project", 1, 25.0, 2100.0, "blue")
 #database.delete_project(3)

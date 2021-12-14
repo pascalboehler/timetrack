@@ -12,3 +12,5 @@ INSERT INTO time_entry (
 VALUES (
     
 );
+
+SELECT * FROM time_entry WHERE entry_id = 1;
