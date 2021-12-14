@@ -23,13 +23,20 @@ from datatypes.task import Task
 from datatypes.client import Client
 from datatypes.project import Project
 
+# helper files
+from logs import Log
+
 class DatabaseHandler:
 
     connection: any
     database_connected: bool
+    logger: Log
 
     def __init__(self, path):
         self.database_connected = False
+
+        # init logger
+        self.logger = Log("datebase_handler")
 
         # load database credentials from .env file
         dotenv_path = Path(path)
@@ -50,10 +57,10 @@ class DatabaseHandler:
                 database = database_name
             )
             self.database_connected = True;
-            print("Connection successful and working!")
+            self.logger.info(f"Database connection to {hostname} successful and working")
             return _connection
         except Error as err:
-            print(f"Error: '{err}'")
+            self.logger.critical(err)
 
     def create_new_project(self, project: Project):
         query = f"""
@@ -65,12 +72,13 @@ class DatabaseHandler:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print("Project created!")
+            self.logger.info("New project created")
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def delete_project(self, project: Project):
         if project.getID() is None:
+            self.logger.warning("Couldn't delete project, ID was None")
             return
         
         query = f"""
@@ -80,9 +88,9 @@ class DatabaseHandler:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print("Project deleted")
+            self.logger.info(f"Project with ID {project.getID()} successfully deleted")
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def read_project(self, project_id):
         query = f"""
@@ -100,7 +108,7 @@ class DatabaseHandler:
             project = Project(dataset[1], dataset[2], dataset[3], dataset[5], dataset[0], dataset[4])
             return project
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def read_all_projects(self):
         query = """
@@ -119,7 +127,7 @@ class DatabaseHandler:
                 projects.append(project)
             return projects
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def create_client(self, client: Client):
         
@@ -154,12 +162,13 @@ class DatabaseHandler:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print("Client successfully created")
+            self.logger.info("new client successfully created")
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def delete_client(self, client: Client):
         if client.getID() is None:
+            self.logger.warning("ClientID was None. Couldn't delete client")
             return
 
         query = f"DELETE FROM client WHERE client_id = {client.getID()}"
@@ -167,9 +176,9 @@ class DatabaseHandler:
         try:
             cursor.execure(query)
             self.connection.commit()
-            print("Client deleted")
+            self.logger.info(f"Client with ID {client.getID()} successfully deleted,")
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def read_client(self, client_id):
         query = f"""
@@ -186,7 +195,7 @@ class DatabaseHandler:
             client = Client(dataset[1], dataset[2], dataset[3], dataset[4], dataset[5], dataset[6], dataset[7], dataset[8], dataset[9], dataset[0])
             return client
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def read_all_clients(self):
         query = f"""
@@ -205,7 +214,7 @@ class DatabaseHandler:
                 clients.append(client)
             return clients
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def create_task(self, task: Task):
         query = f"""
@@ -216,12 +225,13 @@ class DatabaseHandler:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print("Task successfully created")
+            self.logger.info("New task successfully created")
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def delete_task(self, task: Task):
         if task.getID() is None:
+            self.logger.warning("TaskID is None. Couldn't delete task")
             return
 
         query = f"""
@@ -231,9 +241,9 @@ class DatabaseHandler:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print("Task deleted")
+            self.logger.info(f"Task with ID {task.getID()} successfully deleted")
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def read_task(self, task_id):
         query = f"""
@@ -250,7 +260,7 @@ class DatabaseHandler:
             task = Task(dataset[1], dataset[2], dataset[3], dataset[0])
             return task
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def read_all_tasks(self):
         query = f"""
@@ -269,7 +279,7 @@ class DatabaseHandler:
                 tasks.append(task)
             return tasks
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def create_time_entry(self, time_entry: TimeEntry):
         query = f"""
@@ -300,12 +310,13 @@ class DatabaseHandler:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print("Time entry created successfully")
+            self.logger.info("New  time entry successfully created")
         except Error as err:
-            print(f"Error '{err}")
+            self.logger.error(err)
 
     def delete_time_entry(self, time_entry: TimeEntry):
         if time_entry.getID() is None:
+            self.logger.warning("Time entry ID was None. Couldn't delete time entry")
             return
         
         query = f"""
@@ -315,9 +326,9 @@ class DatabaseHandler:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print("Task deleted")
+            self.logger.info(f"Time entry with ID {time_entry.getID()} successfully created")
         except Error as err:
-            print(f"Error '{err}'")
+            self.logger.error(err)
 
     def read_time_entry(self, entry_id):
         query = f"""
@@ -338,7 +349,7 @@ class DatabaseHandler:
             )
             return time_entry
         except Error as err:
-            print(f"Error: '{err}'")
+            self.logger.error(err)
 
     def read_all_time_entries(self):
         query = f"""
@@ -359,7 +370,7 @@ class DatabaseHandler:
                 time_entries.append(time_entry)
             return time_entries
         except Error as err:
-            print(f"Error: '{err}'")
+            self.logger.error(err)
 
 if __name__ == "__main__":
     database = DatabaseHandler("./API/.env")
