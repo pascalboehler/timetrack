@@ -162,6 +162,42 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
+    def read_task(self, task_id):
+        query = f"""
+        SELECT * FROM task WHERE task_id = {task_id};
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            list = []
+            for result in results:
+                list.append(result)
+            dataset = list[0]
+            task = Task(dataset[1], dataset[2], dataset[3], dataset[0])
+            return task
+        except Error as err:
+            print(f"Error '{err}'")
+
+    def read_all_tasks(self):
+        query = f"""
+        SELECT * FROM task;
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            list = []
+            tasks = []
+            for result in results:
+                list.append(result)
+            for dataset in list:
+                task = Task(dataset[1], dataset[2], dataset[3], dataset[0])
+                tasks.append(task)
+            return tasks
+        except Error as err:
+            print(f"Error '{err}'")
+
     def create_time_entry(self, time_entry: TimeEntry):
         query = f"""
         INSERT INTO time_entry (
@@ -255,8 +291,7 @@ class DatabaseHandler:
 
 database = DatabaseHandler("./API/.env")
 
-time_entry = TimeEntry("Test", "2022-09-09", "22:22:22", "2022-09-09", "23:59:59", 1, 1, 1, True)
-
+print("--- TIME ENTRY ---")
 new_time_entry = database.read_time_entry(1)
 print(new_time_entry.getTitle())
 
@@ -265,5 +300,12 @@ all_time_entries = database.read_all_time_entries()
 for entry in all_time_entries:
     print(entry.getTitle())
 
-#database.create_new_project("Super project", 1, 25.0, 2100.0, "blue")
-#database.delete_project(3)
+print("--- TASK ---")
+
+new_task = database.read_task(1)
+print(new_task.getTaskName())
+
+all_tasks = database.read_all_tasks()
+
+for task in all_tasks:
+    print(task.getTaskName())
