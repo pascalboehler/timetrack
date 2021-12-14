@@ -217,6 +217,27 @@ class DatabaseHandler:
             print(f"Error: '{err}'")
 
 
+    def read_all_time_entries(self):
+        query = f"""
+        SELECT * FROM time_entry;
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            list = []
+            for result in results:
+                list.append(result)
+            time_entries = []
+            for dataset in list:
+                time_entry = TimeEntry(
+                    dataset[1], dataset[2], dataset[3], dataset[4], dataset[5], dataset[6], dataset[7], dataset[8], dataset[9], dataset[0]
+                )
+                time_entries.append(time_entry)
+            return time_entries
+        except Error as err:
+            print(f"Error: '{err}'")
+
 
 database = DatabaseHandler("./API/.env")
 
@@ -224,6 +245,11 @@ time_entry = TimeEntry("Test", "2022-09-09", "22:22:22", "2022-09-09", "23:59:59
 
 new_time_entry = database.read_time_entry(1)
 print(new_time_entry.getTitle())
+
+all_time_entries = database.read_all_time_entries()
+
+for entry in all_time_entries:
+    print(entry.getTitle())
 
 #database.create_new_project("Super project", 1, 25.0, 2100.0, "blue")
 #database.delete_project(3)
