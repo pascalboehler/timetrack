@@ -134,6 +134,42 @@ class DatabaseHandler:
         except Error as err:
             print(f"Error '{err}'")
 
+    def read_client(self, client_id):
+        query = f"""
+        SELECT * FROM client WHERE client_id = {client_id};
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            list = []
+            for result in results:
+                list.append(result)
+            dataset = list[0]
+            client = Client(dataset[1], dataset[2], dataset[3], dataset[4], dataset[5], dataset[6], dataset[7], dataset[8], dataset[9], dataset[0])
+            return client
+        except Error as err:
+            print(f"Error '{err}'")
+
+    def read_all_clients(self):
+        query = f"""
+        SELECT * FROM client;
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            list = []
+            for result in results:
+                list.append(result)
+            clients = []
+            for dataset in list:
+                client = Client(dataset[1], dataset[2], dataset[3], dataset[4], dataset[5], dataset[6], dataset[7], dataset[8], dataset[9], dataset[0])
+                clients.append(client)
+            return clients
+        except Error as err:
+            print(f"Error '{err}'")
+
     def create_task(self, task: Task):
         query = f"""
         INSERT INTO task (task_name, project_id, task_hourly_rate)
@@ -309,3 +345,14 @@ all_tasks = database.read_all_tasks()
 
 for task in all_tasks:
     print(task.getTaskName())
+
+print("--- CLIENT ---")
+
+new_client = database.read_client(1)
+print(new_client.getClientName())
+
+all_clients = database.read_all_clients()
+
+for client in all_clients:
+    print(client.getClientName())
+

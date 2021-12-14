@@ -11,6 +11,8 @@ INSERT INTO client (
 )
 VALUES (
 
-)
+);
 
-DELETE FROM client WHERE client_id = 2
+DELETE FROM client WHERE client_id = 2;
+
+SELECT * FROM client WHERE client_id = 1;
