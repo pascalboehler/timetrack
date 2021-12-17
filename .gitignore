@@ -68,3 +68,6 @@ Docker/database_data
 # Testing and learning folders
 learning
 learning/*
+
+logs
+logs/*
