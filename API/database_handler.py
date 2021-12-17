@@ -415,3 +415,4 @@ if __name__ == "__main__":
     for project in all_projects:
         print(project.getTitle())
 
+        
