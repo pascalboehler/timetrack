@@ -372,6 +372,10 @@ class DatabaseHandler:
         except Error as err:
             self.logger.error(err)
 
+################
+# TESTING ONLY #
+################
+
 if __name__ == "__main__":
     database = DatabaseHandler("./API/.env")
 
