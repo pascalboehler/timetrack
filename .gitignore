@@ -75,3 +75,4 @@ learning/*
 
 logs
 logs/*
+*.log
