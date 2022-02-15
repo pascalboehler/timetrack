@@ -50,9 +50,16 @@ As part of my job, I am forced to track the time I work and send a monthly repor
     - [x] create new project
     - delete project (dynamic method?)
     - [x] delete project
-    - create new client
+    - [x] read single project / all projects
+    - [x] create new client
     - edit client
-    - delete client
+    - [x] delete client
+    - [x] read single client / all clients
+    - [x] create new time entry
+    - [x] delete time entry
+    - [x] read time entry
+    - edit time entry
+
 - Create backend server with PY
     - Design API Endpoints
     - Find way to secure API Endpoint (Auth System; Firebase?)
