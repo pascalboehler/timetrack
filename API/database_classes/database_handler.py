@@ -17,13 +17,13 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 # import custom datatypes
-from datatypes.time_entry import TimeEntry
-from datatypes.task import Task
-from datatypes.client import Client
-from datatypes.project import Project
+from API.datatypes.time_entry import TimeEntry
+from API.datatypes.task import Task
+from API.datatypes.client import Client
+from API.datatypes.project import Project
 
 # helper files
-from logs import Log
+from API.logs import Log
 
 class DatabaseHandler:
 
@@ -125,57 +125,6 @@ class DatabaseHandler:
                 project = Project(dataset[1], dataset[2], dataset[3], dataset[5], dataset[0], dataset[4])
                 projects.append(project)
             return projects
-        except Error as err:
-            self.logger.error(err)
-
-    def create_client(self, client: Client):
-        
-        # Function for creating a new client entry in the database
-
-        query = f"""
-        INSERT INTO client (
-            client_name,
-            contact_name,
-            contact_phone,
-            default_hourly_rate,
-            billing_address_street_and_housenumber,
-            billing_address_postal_code,
-            billing_address_city,
-            billing_address_state,
-            billing_address_country
-        )
-        VALUES (
-            {client.getClientName()},
-            {client.getContactName()},
-            {client.getContactPhone()}
-            {client.getHourlyRate()},
-            {client.getBillingAddressStreetAndHousenumber()},
-            {client.getBillingAddressPostalCode()},
-            {client.getBillingAddressCity()},
-            {client.getBillingAddressState()},
-            {client.getBillingAddressCountry()}
-        )
-        """
-
-        cursor = self.connection.cursor()
-        try:
-            cursor.execute(query)
-            self.connection.commit()
-            self.logger.info("new client successfully created")
-        except Error as err:
-            self.logger.error(err)
-
-    def delete_client(self, client: Client):
-        if client.getID() is None:
-            self.logger.warning("ClientID was None. Couldn't delete client")
-            return
-
-        query = f"DELETE FROM client WHERE client_id = {client.getID()}"
-        cursor = self.connection.cursor()
-        try:
-            cursor.execure(query)
-            self.connection.commit()
-            self.logger.info(f"Client with ID {client.getID()} successfully deleted,")
         except Error as err:
             self.logger.error(err)
 
@@ -288,7 +237,7 @@ class DatabaseHandler:
             time_begin,
             date_end,
             time_end,
-            project_id,
+            project_id,s
             client_id,
             task_id,
             billable
@@ -374,51 +323,19 @@ class DatabaseHandler:
     def edit_time_entry(self, entry: TimeEntry):
         print("EDITED")
 
+
+    def write_to_db(self, query):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            self.connection.commit()
+            self.logger.info(f"Succesfully stored data to DB")
+        except Error as err:
+            self.logger.error(err)
+
 ################
 # TESTING ONLY #
 ################
 
-if __name__ == "__main__":
-    database = DatabaseHandler("./API/.env")
-
-    print("--- TIME ENTRY ---")
-    new_time_entry = database.read_time_entry(1)
-    print(new_time_entry.getTitle())
-
-    all_time_entries = database.read_all_time_entries()
-
-    for entry in all_time_entries:
-        print(entry.getTitle())
-
-    print("--- TASK ---")
-
-    new_task = database.read_task(1)
-    print(new_task.getTaskName())
-
-    all_tasks = database.read_all_tasks()
-
-    for task in all_tasks:
-        print(task.getTaskName())
-
-    print("--- CLIENT ---")
-
-    new_client = database.read_client(1)
-    print(new_client.getClientName())
-
-    all_clients = database.read_all_clients()
-
-    for client in all_clients:
-        print(client.getClientName())
-
-    print("--- PROJECT ---")
-
-    new_project = database.read_project(1)
-
-    print(new_project.getTitle())
-
-    all_projects = database.read_all_projects()
-
-    for project in all_projects:
-        print(project.getTitle())
 
         

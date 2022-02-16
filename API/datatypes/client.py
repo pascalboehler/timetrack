@@ -1,3 +1,13 @@
+#
+# client.py
+# Created on 10.12.2021
+# Author: Pascal Boehler
+# client class for savely working with the client object
+#
+
+from API.database_classes.database_handler import DatabaseHandler
+
+
 class Client:
     _id: int
     _client_name: str
@@ -26,6 +36,9 @@ class Client:
         self._billing_address_state = billing_address_state
         self._billing_address_country = billing_address_country
 
+    ###########################
+    ### GETTERS AND SETTERS ###
+    ###########################
     def getID(self):
         return self._id
 
@@ -55,3 +68,55 @@ class Client:
 
     def getBillingAddressCountry(self):
         return self._billing_address_country
+
+    ##########################
+    ### Database functions ###
+    ##########################
+
+    def fetch():
+        print("FETCH")
+
+    def store(self, conn: DatabaseHandler):
+        if self._id is None:
+           self. _create(conn=conn)
+        else:
+            self._update()
+
+    def _create(self, conn: DatabaseHandler):
+        query = f"""
+        INSERT INTO client (
+            client_name,
+            contact_name,
+            contact_phone,
+            default_hourly_rate,
+            billing_address_street_and_housenumber,
+            billing_address_postal_code,
+            billing_address_city,
+            billing_address_state,
+            billing_address_country
+        )
+        VALUES (
+            {self._client_name},
+            {self._contact_name},
+            {self._contact_name}
+            {self._hourly_rate},
+            {self._billing_address_street_and_housenumber},
+            {self._billing_address_postal_code},
+            {self._billing_address_city},
+            {self._billing_address_state},
+            {self._billing_address_country}
+        )
+        """
+
+        conn.write_to_db(query)
+
+        print("CREATE")
+
+    def _update():
+        print("UPDATE")
+
+    def edit():
+        print("Client xyz updated")
+
+    def delete():
+        print("DELETED")
