@@ -51,6 +51,7 @@ As part of my job, I am forced to track the time I work and send a monthly repor
     - delete project (dynamic method?)
     - [x] delete project
     - [x] read single project / all projects
+    - edit a project
     - [x] create new client
     - edit client
     - [x] delete client
@@ -59,6 +60,8 @@ As part of my job, I am forced to track the time I work and send a monthly repor
     - [x] delete time entry
     - [x] read time entry
     - edit time entry
+    - [x] create 
+    - refactor DATABASE CLASSES
 
 - Create backend server with Python
     - Design API Endpoints
