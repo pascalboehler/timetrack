@@ -8,7 +8,6 @@
 ###############
 ### Imports ###
 ###############
-from typing import Any
 import mysql.connector
 from mysql.connector import Error
 from mysql.connector.utils import normalize_unicode_string
@@ -371,6 +370,9 @@ class DatabaseHandler:
             return time_entries
         except Error as err:
             self.logger.error(err)
+
+    def edit_time_entry(self, entry: TimeEntry):
+        print("EDITED")
 
 ################
 # TESTING ONLY #
