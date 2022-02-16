@@ -23,4 +23,4 @@
     - Find way to secure API Endpoint (Auth System; Firebase?)
     - Connect DB to Backend
 - Create CLI
-    - Create simple CLI to communicate with the API (like create entries, start timer etc.)
+    - Create simple CLI to communicate with the API (like to create entries, start timer etc.)
