@@ -60,7 +60,7 @@ As part of my job, I am forced to track the time I work and send a monthly repor
     - [x] read time entry
     - edit time entry
 
-- Create backend server with PY
+- Create backend server with Python
     - Design API Endpoints
     - Find way to secure API Endpoint (Auth System; Firebase?)
     - Connect DB to Backend
