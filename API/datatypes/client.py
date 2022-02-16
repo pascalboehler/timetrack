@@ -73,16 +73,19 @@ class Client:
     ### Database functions ###
     ##########################
 
-    def fetch():
+    def fetch(self, db):
+        # function for fetching changes made to the specific object before manipulating it
+        query = f"""SELECT * FROM client WHERE client_id = {self._id}"""
+
         print("FETCH")
 
-    def store(self, conn: DatabaseHandler):
+    def store(self, db: DatabaseHandler):
         if self._id is None:
-           self. _create(conn=conn)
+           self. _create(db=db)
         else:
             self._update()
 
-    def _create(self, conn: DatabaseHandler):
+    def _create(self, db: DatabaseHandler):
         query = f"""
         INSERT INTO client (
             client_name,
@@ -108,11 +111,11 @@ class Client:
         )
         """
 
-        conn.write_to_db(query)
+        db.write_to_db(query)
 
         print("CREATE")
 
-    def _update():
+    def _update(self, db):
         print("UPDATE")
 
     def edit():
