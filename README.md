@@ -31,41 +31,15 @@ As part of my job, I am forced to track the time I work and send a monthly repor
     - billing address
     - default hourly rate (which will be overwritten by project)
 - create time entries manually (by entering required information)
-- create time entries via stopclock
+- create time entries via stop clock
 - automate time creation, eg. when Program X is opened, start tracking for project Y.
-- export project overview / reports as PDF via LaTex
-- export invoices for client as PDF via LaTex (on specific project / time frame)
-- being able to import owm LaTex templates for reports and invoices -> keep a consistent corp design
+- export project overview / reports as PDF via LaTeX
+- export invoices for client as PDF via LaTeX (on specific project / time frame)
+- being able to import own LaTeX templates for reports and invoices -> keep a consistent corp design
 - access the service via web, phone and desktop app / cmd (Win & Mac)
 - being able to easily host own instance on own infrastructure (like corp server, NAS whatever)
 - display overview of past month etc.
-- sync with google calendar => being able to copy cal entry as time entry including title etc.
+- sync with Google calendar => being able to copy cal entry as time entry including title etc.
 - show estimate earning for week / month / year by including planned work assignments from calendar
-- be able to develop own frontend for backend solution => write to DB via REST Api
+- be able to develop own frontend for backend solution => write to DB via REST API
 
-## Tasks
-- [x] Create database scheme
-- [x] Apply database scheme to MySQL Server
-- create Python interface to work with the database
-    - [x] create new project
-    - delete project (dynamic method?)
-    - [x] delete project
-    - [x] read single project / all projects
-    - edit a project
-    - [x] create new client
-    - edit client
-    - [x] delete client
-    - [x] read single client / all clients
-    - [x] create new time entry
-    - [x] delete time entry
-    - [x] read time entry
-    - edit time entry
-    - [x] create 
-    - refactor DATABASE CLASSES
-
-- Create backend server with Python
-    - Design API Endpoints
-    - Find way to secure API Endpoint (Auth System; Firebase?)
-    - Connect DB to Backend
-- Create CLI
-    - Create simple CLI to communicate with the API (like create entries, start timer etc.)

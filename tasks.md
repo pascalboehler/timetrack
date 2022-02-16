@@ -1,0 +1,26 @@
+# Tasks
+- [x] Create database scheme
+- [x] Apply database scheme to MySQL Server
+- create Python interface to work with the database
+    - [x] create new project
+    - delete project (dynamic method?)
+    - [x] delete project
+    - [x] read single project / all projects
+    - edit a project
+    - [x] create new client
+    - edit client
+    - [x] delete client
+    - [x] read single client / all clients
+    - [x] create new time entry
+    - [x] delete time entry
+    - [x] read time entry
+    - edit time entry
+    - [x] create 
+    - refactor DATABASE CLASSES
+
+- Create backend server with Python
+    - Design API Endpoints
+    - Find way to secure API Endpoint (Auth System; Firebase?)
+    - Connect DB to Backend
+- Create CLI
+    - Create simple CLI to communicate with the API (like create entries, start timer etc.)
