@@ -83,7 +83,9 @@ class Client:
         # function for fetching changes made to the specific object before manipulating it
         query = f"""SELECT * FROM client WHERE client_id = {self._id}"""
 
-        print("FETCH")
+        data = db.read_from_db(query)
+
+        print(data)
 
     def store(self, db: DatabaseHandler):
         if self._id is None:

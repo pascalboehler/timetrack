@@ -50,7 +50,7 @@ def test_client_write_db():
 
     # create a new client
     client = Client("test", "Test", 12345, 42.3, "Teststrasse 1", "123456", "Frankfurt", "HESSE", "Germany")
-    db = DatabaseHandler("./Api/.env")
+    db = DatabaseHandler("./.env")
 
     client.store(db)
 
@@ -58,11 +58,9 @@ def test_client_write_db():
 
     client.store(db)
 
-    client.delete(db)
+    client.fetch(db)
     
     print("TESTED")
-
-    
 
 if __name__ == "__main__":
     main()

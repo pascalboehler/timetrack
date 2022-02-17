@@ -81,8 +81,14 @@ class DatabaseHandler:
             self.logger.error(err)
 
     def read_from_db(self, query):
-        # TODO: Create method for reading from database
-        print("READING")
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            self.logger.info(f"Succesfully fetched data from db")
+            return results
+        except Error as err:
+            self.logger.error(err)
 
     def create_object(self, query):
         cursor = self.connection.cursor()
