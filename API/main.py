@@ -54,6 +54,12 @@ def test_client_write_db():
 
     client.store(db)
 
+    client.setClientName("Bernd")
+
+    client.store(db)
+
+    client.delete(db)
+    
     print("TESTED")
 
     

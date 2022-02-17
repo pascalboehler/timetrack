@@ -6,7 +6,7 @@
 #
 
 from database_classes.database_handler import DatabaseHandler
-
+from logs import Log
 
 class Client:
     _id: int
@@ -19,6 +19,7 @@ class Client:
     _billing_address_city: str
     _billing_address_state: str
     _billing_address_country: int
+    _logger: Log
 
     def __init__(self, client_name, contact_name, contact_phone, hourly_rate, billing_address_street_and_housenumber, billing_address_postal_code, billing_address_city, billing_address_state, billing_address_country, id = None):
         if id is not None:
@@ -35,6 +36,8 @@ class Client:
         self._billing_address_city = billing_address_city
         self._billing_address_state = billing_address_state
         self._billing_address_country = billing_address_country
+
+        self._logger = Log("client")
 
     ###########################
     ### GETTERS AND SETTERS ###
@@ -69,6 +72,9 @@ class Client:
     def getBillingAddressCountry(self):
         return self._billing_address_country
 
+    def setClientName(self, name):
+        self._client_name = name
+
     ##########################
     ### Database functions ###
     ##########################
@@ -83,7 +89,7 @@ class Client:
         if self._id is None:
            self._create(db=db)
         else:
-            self._update()
+            self._update(db=db)
 
     def _create(self, db: DatabaseHandler):
         query = f"""
@@ -109,17 +115,42 @@ class Client:
             '{self._billing_address_state}',
             '{self._billing_address_country}'
         );
+        SELECT LAST_INSERT_ID() AS client_id;
+        """
+
+        result = db.create_object(query)
+
+        self._id = result
+        self._logger.info(f"Successfully created client with ID {self._id}")
+
+    def _update(self, db: DatabaseHandler):
+        query = f"""
+        UPDATE client
+        SET
+            client_name = "{self._client_name}", 
+            contact_name = "{self._contact_name}",
+            contact_phone = {self._contact_phone},
+            default_hourly_rate = {self._hourly_rate},
+            billing_address_street_and_housenumber = "{self._billing_address_street_and_housenumber}",
+            billing_address_postal_code = "{self._billing_address_postal_code}",
+            billing_address_city = "{self._billing_address_city}",
+            billing_address_state = "{self._billing_address_state}",
+            billing_address_country = "{self._billing_address_country}"
+        WHERE
+            client_id = {self._id}
         """
 
         db.write_to_db(query)
 
-        print("CREATE")
+        self._logger.info(f"Successfully updated client with ID {self._id}")
 
-    def _update(self, db):
-        print("UPDATE")
+    def delete(self, db: DatabaseHandler):
+        query = f"""
+        DELETE FROM client WHERE client_id = {self._id};
+        """
 
-    def edit():
-        print("Client xyz updated")
+        db.delete_from_db(query)
 
-    def delete():
-        print("DELETED")
+        self._id = None # mark object as not stored in DB!!
+
+        self._logger.info(f"Successfully deleted client from database")

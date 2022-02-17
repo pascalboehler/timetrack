@@ -30,3 +30,4 @@ SET
     billing_address_country = ""
 WHERE
     client_id = 1
+

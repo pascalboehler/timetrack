@@ -71,4 +71,37 @@ class DatabaseHandler:
         except Error as err:
             self.logger.error(err)
 
+    def delete_from_db(self, query):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            self.connection.commit()
+            self.logger.info(f"Succesfully deleted data from DB")
+        except Error as err:
+            self.logger.error(err)
+
+    def read_from_db(self, query):
+        # TODO: Create method for reading from database
+        print("READING")
+
+    def create_object(self, query):
+        cursor = self.connection.cursor()
+        # split the query up in write and read part!
+        string_new = str.split(query, ';\n')
+        commands = []
+        for string_part in string_new:
+            commands.append(string_part + ";")
+
+        try:
+            cursor.execute(commands[0])
+            self.connection.commit()
+            cursor.execute(commands[1])
+            results = cursor.fetchall()
+            self.logger.info(f"Succesfully stored data to DB")
+            return results[0][0]
+        except Error as err:
+            self.logger.error(err)
+
+    
+
         
