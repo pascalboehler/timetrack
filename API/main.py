@@ -1,10 +1,10 @@
-import database_classes.database_handler as DB_Handler
-
+from database_classes.database_handler import DatabaseHandler
+from datatypes.client import Client
 def main():
-    testDB()
+    test_client_write_db()
 
 def testDB():
-    database = DB_Handler.DatabaseHandler("./API/.env")
+    database = DatabaseHandler("./API/.env")
 
     print("--- TIME ENTRY ---")
     new_time_entry = database.read_time_entry(1)
@@ -45,6 +45,18 @@ def testDB():
 
     for project in all_projects:
         print(project.getTitle())
+
+def test_client_write_db():
+
+    # create a new client
+    client = Client("test", "Test", 12345, 42.3, "Teststrasse 1", "123456", "Frankfurt", "HESSE", "Germany")
+    db = DatabaseHandler("./Api/.env")
+
+    client.store(db)
+
+    print("TESTED")
+
+    
 
 if __name__ == "__main__":
     main()

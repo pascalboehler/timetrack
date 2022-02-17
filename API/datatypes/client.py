@@ -5,7 +5,7 @@
 # client class for savely working with the client object
 #
 
-from API.database_classes.database_handler import DatabaseHandler
+from database_classes.database_handler import DatabaseHandler
 
 
 class Client:
@@ -81,7 +81,7 @@ class Client:
 
     def store(self, db: DatabaseHandler):
         if self._id is None:
-           self. _create(db=db)
+           self._create(db=db)
         else:
             self._update()
 
@@ -99,16 +99,16 @@ class Client:
             billing_address_country
         )
         VALUES (
-            {self._client_name},
-            {self._contact_name},
-            {self._contact_name}
+            '{self._client_name}',
+            '{self._contact_name}',
+            {self._contact_phone},
             {self._hourly_rate},
-            {self._billing_address_street_and_housenumber},
-            {self._billing_address_postal_code},
-            {self._billing_address_city},
-            {self._billing_address_state},
-            {self._billing_address_country}
-        )
+            '{self._billing_address_street_and_housenumber}',
+            '{self._billing_address_postal_code}',
+            '{self._billing_address_city}',
+            '{self._billing_address_state}',
+            '{self._billing_address_country}'
+        );
         """
 
         db.write_to_db(query)
